@@ -45,6 +45,11 @@ h1 {
     color: #1e3a8a;
 }
 
+p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .hero {
     position: sticky;
     top: 0;
