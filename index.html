@@ -5,45 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Jennifer Hoang's Portfolio Website">
     <meta name="author" content="Jennifer Hoang">
+
     <title>Jennifer Hoang's Portfolio</title>
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Crimson+Pro:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <h1>Jennifer Hoang</h1>
-        <nav>
-            <ul>
-                <li><a href="#About">About</a></li>
-                <li><a href="#Experience">Experience</a></li>
-                <li><a href="#Connect">Connect</a></li>
-            </ul>
-        </nav>
+
+    <header class="hero">
+        <img class="profile-image" src="images/profile.jpeg" alt="Jennifer Hoang Profile Photo">
+
+        <div class="hero-text">
+            <h1>Jennifer Hoang</h1>
+            <p>Aspiring Data Analyst & Emerging Tech Professional</p>
+
+            <nav>
+                <ul>
+                    <li><a href="#About">About</a></li>
+                    <li><a href="Projects">Projects</a></li>
+                    <li><a href="#Experience">Experience</a></li>
+                    <li><a href="#Skills">Skills</a></li>
+                    <li><a href="#Connect">Connect</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-<main> 
-    <section id="About">
-        <h2>About</h2>
-            <p>I’m an emerging tech professional transitioning from the dental industry on the path to earning my certifications in data analytics. As I continue to develop my skills in coding, I am having fun and truly enjoying my passion! </p>
-    </section>
-    <section id="Experience">
-        <h2>Experience</h2>
-        <ul>
-            <li>Developed and documented a streamlined pay system of e-check payments via fax, accelerating payment to doctors and improving financial record accuracy</li>
-            <li>Google Certification in Advanced Data Analytics Specialization</li>
-            <li>Google Certification in Business Intelligence</li>
-            <li>NPower's Technical Fundamentals</li>
-            <li>SQL, Excel, Python, and HTML</li>
-        </ul>
-    </section>
-    <section id="Connect">
-        <h2>Connect</h2>
-        <ul>
-            <li><a href="https://www.linkedin.com/in/jennifernhoang8/" target="_blank" rel="noopener noreferrer" >LinkedIn</a></li>
-            <li><a href="https://github.com/jenferno" target="_blank" rel="noopener noreferrer" >GitHub</a></li>
-        </ul>
-    </section>
-</main>
-    
+
+    <main>
+
+        <section id="About" class="card">
+            <h2>About</h2>
+            <p>
+                I’m an emerging tech professional transitioning from the dental industry
+                on the path to earning my certifications in data analytics. As I continue
+                to develop my skills in coding, I am having fun and truly enjoying my passion!
+            </p>
+        </section>
+        <section id="Projects" class="card">
+            <h2>Projects</h2>
+            <ul>
+                <li></li>
+            </ul>
+        </section>
+        <section id="Experience" class="card">
+            <h2>Experience</h2>
+            <div class="experience-list">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>Dental Payment Process Improvement as a Dental Assistant</h3>
+                        <span>2018 - Present</span>
+                    </div>
+
+                    <p>Developed and documented a streamlined pay system of e-check payments
+                    via fax, accelerating payment to doctors and improving financial record accuracy.</p>    
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>Google Advanced Data Analytics Certification</h3>
+                        <span>January 2026</span>
+                    </div>
+
+                    <p>Completed advanced training in data analytics, Python, statistics,
+                    machine learning foundations, and data-driven problem solving.</p>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>CompTIA A+</h3>
+                        <span>November 2025</span>
+                    </div>
+
+                    <p>    Developed foundational IT skills in hardware, networking,
+    operating systems, cybersecurity, and technical troubleshooting
+    through CompTIA A+ certification training.</p>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>Google Business Intelligence Certification</h3>
+                        <span>October 2025</span>
+                    </div>
+
+                    <p>Built knowledge in dashboards, reporting, business metrics,
+                    data visualization, and stakeholder-focused insights.</p>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>NPower Technical Fundamentals</h3>
+                        <span>August 2025 - December 2025</span>
+                    </div>
+
+                    <p>Developed foundational technical skills in IT, professional communication,
+            problem solving, and technology career preparation.</p>
+                </div>
+
+    </div>
+</section>
+
+        <section id="Skills" class="card">
+            <h2>Skills</h2>
+
+            <ul class="skills-list">
+                <li>SQL</li>
+                <li>Python</li>
+                <li>Excel</li>
+                <li>HTML</li>
+                <li>Data Analytics</li>
+                <li>Business Intelligence</li>
+                <li>Data Visualization</li>
+                <li>Process Optimization</li>
+                <li>Problem Solving</li>
+                <li>Dashboard Reporting</li>
+                <li>Cross-Team Communication</li>
+                <li>Operational Efficiency</li>
+                <li>Documentation & Reporting</li>
+            </ul>
+        </section>
+
+        <section id="Connect" class="card">
+            <h2>Connect</h2>
+            <p>Find me on LinkedIn and GitHub.</p>
+            <div class="social-links">
+
+                <a href="https://www.linkedin.com/in/jennifernhoang8/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                        <img src="images/linkedin-logo.png"
+                        alt="LinkedIn"
+                        class="social-icon">
+                </a>
+
+                <a href="https://github.com/jenferno"
+                     target="_blank"
+                     rel="noopener noreferrer">
+                        <img src="images/github-logo.png"
+                        alt="GitHub"
+                        class="social-icon">
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
     <footer>
         &copy; Jennifer Hoang
     </footer>
+
 </body>
 </html>
