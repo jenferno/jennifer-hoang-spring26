@@ -106,10 +106,6 @@ h2 {
     color: #2563eb;
 }
 
-ul {
-    padding-left: 20px;
-}
-
 li {
     margin-bottom: 10px;
 }
@@ -202,4 +198,71 @@ footer {
     text-align: center;
     padding: 25px;
     color: #64748b;
+}
+#message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#message h2,
+#message p {
+    text-align: center;
+}
+
+#message form {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#message label {
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+#message input,
+#message textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #1f2937;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#message input:focus,
+#message textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.25);
+}
+
+#message textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+#message button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#message button:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
 }
