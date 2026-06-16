@@ -14,8 +14,8 @@
 
         <nav class="top-nav">
             <a href="index.html">Back to Portfolio</a>
-            <button id="show-scorers" type="button">Top Scorers</button>
-            <button id="show-leagues" type="button">Current Leagues</button>
+            <button id="show-scorers" aria-label="Display Premier League top scorers" type="button">Top Scorers</button>
+            <button id="show-leagues" aria-label="Display current football leagues" type="button">Current Leagues</button>
         </nav>
     </header>
 
@@ -26,7 +26,7 @@
 
             <div id="status-message" class="status-message"></div>
 
-            <ul id="football-data-list" class="data-list"></ul>
+            <ul id="football-data-list" class="data-list" aria-live="polite"></ul>
         </section>
     </main>
 
