@@ -1,6 +1,6 @@
 const body = document.querySelector("body");
 
-const footer = document.createElement("footer");
+const footer = document.querySelector("footer");
 
 const today = new Date();
 
@@ -89,7 +89,7 @@ messageForm.addEventListener(
         const removeButton =
          document.createElement("button");
 
-        removeButton.innerText = "remove";
+        removeButton.innerText = "Remove";
 
         removeButton.type = "button";
 
@@ -111,3 +111,25 @@ messageForm.addEventListener(
         messageForm.reset();
     }
 );
+
+fetch("https://api.github.com/users/jenferno/repos")
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (repositories) {
+        console.log(repositories);
+
+        const projectSection = document.querySelector("#Projects");
+        const projectList = projectSection.querySelector("ul");
+
+        for (let i = 0; i < repositories.length; i++) {
+            const project = document.createElement("li");
+
+            project.innerText = repositories[i].name;
+
+            projectList.appendChild(project);
+        }
+    })
+    .catch(function (error) {
+        console.error("Error fetching repositories:", error);
+    });
