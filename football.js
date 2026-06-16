@@ -171,7 +171,7 @@ function fetchTopScorers() {
 
                     <p><strong>Goals:</strong> ${stats.goals.total ?? "N/A"}</p>
                     <p><strong>Assists:</strong> ${stats.goals.assists ?? 0}</p>
-                    <p><strong>Appearances:</strong> ${stats.games.appearences ?? "N/A"}</p>
+                    <p><strong>Appearances:</strong> ${stats.games.appearances ?? "N/A"}</p>
                 `);
             }
         })
