@@ -1,19 +1,16 @@
-const body = document.querySelector("body");
-
+// Footer
 const footer = document.querySelector("footer");
 
 const today = new Date();
-
 const thisYear = today.getFullYear();
 
 const copyright = document.createElement("p");
 
-copyright.innerText = `© Jennifer Hoang ${thisYear}`;
+copyright.textContent = `© Jennifer Hoang ${thisYear}`;
 
 footer.appendChild(copyright);
 
-body.appendChild(footer);
-
+// Skills Section
 const skills = [
     "SQL",
     "Python",
@@ -33,87 +30,70 @@ const skills = [
 
 const skillsSection = document.querySelector("#skills");
 
-const skillsList = skillsSection.querySelector("ul");
+if (skillsSection) {
+    const skillsList = skillsSection.querySelector("ul");
 
-for (let i = 0; i < skills.length; i++) {
+    for (let i = 0; i < skills.length; i++) {
+        const skill = document.createElement("li");
 
-    const skill = document.createElement("li");
+        skill.textContent = skills[i];
 
-    skill.innerText = skills[i];
-
-    skillsList.appendChild(skill);
+        skillsList.appendChild(skill);
+    }
 }
 
-const messageForm =
-    document.querySelector(
-        'form[name="leave_message"]'
-    );
 
-messageForm.addEventListener(
-    "submit",
-    function (event) {
+// Leave a Message Form
+const messageForm = document.querySelector('form[name="leave_message"]');
 
+if (messageForm) {
+    messageForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const usersName =
-            event.target.usersName.value;
+        const usersName = event.target.usersName.value;
+        const usersEmail = event.target.usersEmail.value;
+        const usersMessage = event.target.usersMessage.value;
 
-        const usersEmail =
-            event.target.usersEmail.value;
+        const messageSection = document.querySelector("#messages");
+        const messageList = messageSection.querySelector("ul");
 
-        const usersMessage =
-            event.target.usersMessage.value;
-
-        console.log(usersName);
-        console.log(usersEmail);
-        console.log(usersMessage);
-
-        const messageSection =
-        document.querySelector("#messages");
-
-        const messageList =
-        messageSection.querySelector("ul");
-
-        const newMessage =
-        document.createElement("li");
+        const newMessage = document.createElement("li");
 
         newMessage.innerHTML = `
             <a href="mailto:${usersEmail}">
                 ${usersName}
             </a>
+
             <span>
                 ${usersMessage}
             </span>
         `;
 
-        const removeButton =
-         document.createElement("button");
+        const removeButton = document.createElement("button");
 
-        removeButton.innerText = "Remove";
-
+        removeButton.textContent = "Remove";
         removeButton.type = "button";
 
-        removeButton.addEventListener(
-            "click",
-            function () {
-
-             const entry =
-                    removeButton.parentNode;
-
-             entry.remove();
-         }
-        );
+        removeButton.addEventListener("click", function () {
+            const entry = removeButton.parentNode;
+            entry.remove();
+        });
 
         newMessage.appendChild(removeButton);
-
         messageList.appendChild(newMessage);
 
         messageForm.reset();
-    }
-);
+    });
+}
 
+
+// GitHub Repositories / Projects
 fetch("https://api.github.com/users/jenferno/repos")
     .then(function (response) {
+        if (!response.ok) {
+            throw new Error("GitHub request failed.");
+        }
+
         return response.json();
     })
     .then(function (repositories) {
@@ -125,7 +105,7 @@ fetch("https://api.github.com/users/jenferno/repos")
         for (let i = 0; i < repositories.length; i++) {
             const project = document.createElement("li");
 
-            project.innerText = repositories[i].name;
+            project.textContent = repositories[i].name;
 
             projectList.appendChild(project);
         }
@@ -133,8 +113,10 @@ fetch("https://api.github.com/users/jenferno/repos")
     .catch(function (error) {
         console.error("Error fetching repositories:", error);
 
-            const projectSection = document.querySelector("#Projects");
+        const projectSection = document.querySelector("#Projects");
 
-        projectSection.innerHTML +=
-            "<p>Unable to load GitHub repositories at this time.</p>";
+        if (projectSection) {
+            projectSection.innerHTML +=
+                "<p>Unable to load GitHub repositories at this time.</p>";
+        }
     });
