@@ -1,7 +1,4 @@
-// ==============================
 // Footer
-// ==============================
-
 const footer = document.querySelector("footer");
 
 const today = new Date();
@@ -13,11 +10,7 @@ copyright.textContent = `© Jennifer Hoang ${thisYear}`;
 
 footer.appendChild(copyright);
 
-
-// ==============================
 // Skills Section
-// ==============================
-
 const skills = [
     "SQL",
     "Python",
@@ -50,10 +43,7 @@ if (skillsSection) {
 }
 
 
-// ==============================
 // Leave a Message Form
-// ==============================
-
 const messageForm = document.querySelector('form[name="leave_message"]');
 
 if (messageForm) {
@@ -97,10 +87,7 @@ if (messageForm) {
 }
 
 
-// ==============================
 // GitHub Repositories / Projects
-// ==============================
-
 fetch("https://api.github.com/users/jenferno/repos")
     .then(function (response) {
         if (!response.ok) {
