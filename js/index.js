@@ -101,15 +101,20 @@ fetch("https://api.github.com/users/jenferno/repos")
         const projectList = projectSection.querySelector("ul");
 
         for (let i = 0; i < repositories.length; i++) {
+
+            if (repositories[i].name === "jennifer-hoang-spring26") {
+                continue;
+            }
+
             const project = document.createElement("li");
 
             project.innerHTML = `
-    <a href="${repositories[i].html_url}"
-       target="_blank"
-       rel="noopener noreferrer">
-        ${repositories[i].name}
-    </a>
-`;
+                <a href="${repositories[i].html_url}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    ${repositories[i].name}
+                </a>
+            `;
 
             projectList.appendChild(project);
         }
