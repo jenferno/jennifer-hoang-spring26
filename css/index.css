@@ -109,20 +109,31 @@ h2 {
 li {
     margin-bottom: 10px;
 }
+#Projects ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    list-style: none;
+    padding-left: 0;
+}
+
 #Projects li {
     background-color: #f1f5f9;
     padding: 15px;
     border-left: 5px solid #60a5fa;
     border-radius: 8px;
     list-style: none;
-}
-
-#Projects li {
     transition: transform 0.3s ease;
 }
 
 #Projects li:hover {
     transform: translateX(5px);
+}
+
+@media (max-width: 600px) {
+    #Projects ul {
+        grid-template-columns: 1fr;
+    }
 }
 
 .experience-list {
