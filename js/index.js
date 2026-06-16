@@ -103,7 +103,13 @@ fetch("https://api.github.com/users/jenferno/repos")
         for (let i = 0; i < repositories.length; i++) {
             const project = document.createElement("li");
 
-            project.textContent = repositories[i].name;
+            project.innerHTML = `
+    <a href="${repositories[i].html_url}"
+       target="_blank"
+       rel="noopener noreferrer">
+        ${repositories[i].name}
+    </a>
+`;
 
             projectList.appendChild(project);
         }

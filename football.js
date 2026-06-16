@@ -147,7 +147,7 @@ function fetchTopScorers() {
 
                 const flagUrl = getFlagUrl(player.nationality);
                 const flagImage = createImage(flagUrl, `${player.nationality} national flag`, "country-flag");
-                const playerPhoto = createImage(player.photo, `Potrait of ${player.name}`, "player-photo");
+                const playerPhoto = createImage(player.photo, `Portrait of ${player.name}`, "player-photo");
                 const teamLogo = createImage(stats.team.logo, `${stats.team.name} football club logo`, "team-logo");
 
                 renderListItem(`

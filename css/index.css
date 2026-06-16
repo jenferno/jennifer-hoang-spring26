@@ -106,6 +106,13 @@ li {
     margin-bottom: 10px;
 }
 
+.project-highlight {
+    background-color: #f1f5f9;
+    padding: 20px;
+    border-left: 5px solid #2563eb;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    
 .project-card {
     background-color: #f1f5f9;
     padding: 20px;
