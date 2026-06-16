@@ -46,6 +46,15 @@ function renderListItem(htmlContent) {
     footballDataList.appendChild(listItem);
 }
 
+function setLoading(isLoading) {
+    scorersButton.disabled = isLoading;
+    leaguesButton.disabled = isLoading;
+}
+
+function hasApiErrors(data) {
+    return data.errors && Object.keys(data.errors).length > 0;
+}
+
 function getFlagUrl(nationality) {
     const countryCode = flagCodes[nationality];
 
@@ -56,8 +65,23 @@ function getFlagUrl(nationality) {
     return `https://flagcdn.com/24x18/${countryCode}.png`;
 }
 
+function createFlagImage(flagUrl, altText) {
+    if (!flagUrl) {
+        return "";
+    }
+
+    return `
+        <img
+            src="${flagUrl}"
+            alt="${altText}"
+            class="country-flag"
+        >
+    `;
+}
+
 function fetchTopScorers() {
     clearDisplay();
+    setLoading(true);
 
     dataTitle.textContent = "Top Scorers";
     dataDescription.textContent = "Premier League top scorers by goals.";
@@ -67,12 +91,23 @@ function fetchTopScorers() {
             "x-apisports-key": apiKey
         }
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("API request failed.");
+            }
+
+            return response.json();
+        })
+        .then(function (data) {
             console.log(data);
 
             footballDataList.innerHTML = "";
             statusMessage.textContent = "";
+
+            if (hasApiErrors(data)) {
+                showError("API error. Check your API key, endpoint, or request limit.");
+                return;
+            }
 
             if (!data.response || data.response.length === 0) {
                 showError("No top scorer data is available.");
@@ -86,13 +121,16 @@ function fetchTopScorers() {
 
                 const flagUrl = getFlagUrl(player.nationality);
 
-                const flagImage = flagUrl
-                    ? `<img src="${flagUrl}" alt="${player.nationality} flag" class="country-flag">`
-                    : "";
+                const flagImage =
+                    createFlagImage(flagUrl, `${player.nationality} flag`);
 
                 renderListItem(`
                     <div class="player-card-header">
-                        <img src="${player.photo}" alt="${player.name}" class="player-photo">
+                        <img
+                            src="${player.photo}"
+                            alt="${player.name}"
+                            class="player-photo"
+                        >
 
                         <div>
                             <h3>${player.name}</h3>
@@ -105,64 +143,107 @@ function fetchTopScorers() {
                     </div>
 
                     <p>
-                        <img src="${stats.team.logo}" alt="${stats.team.name} logo" class="team-logo">
+                        <img
+                            src="${stats.team.logo}"
+                            alt="${stats.team.name} logo"
+                            class="team-logo"
+                        >
                         <strong>Team:</strong> ${stats.team.name}
                     </p>
 
-                    <p><strong>Goals:</strong> ${stats.goals.total}</p>
+                    <p><strong>Goals:</strong> ${stats.goals.total ?? "N/A"}</p>
                     <p><strong>Assists:</strong> ${stats.goals.assists ?? 0}</p>
-                    <p><strong>Appearances:</strong> ${stats.games.appearences}</p>
+                    <p><strong>Appearances:</strong> ${stats.games.appearences ?? "N/A"}</p>
                 `);
             }
         })
-        .catch(error => {
+        .catch(function (error) {
             console.error("Top scorers error:", error);
             showError("Unable to load top scorers.");
+        })
+        .finally(function () {
+            setLoading(false);
         });
 }
 
 function fetchCurrentLeagues() {
     clearDisplay();
+    setLoading(true);
 
     dataTitle.textContent = "Current Leagues";
-    dataDescription.textContent = "Currently active football leagues.";
+    dataDescription.textContent =
+        "Displaying active football leagues sorted by the most recent season.";
 
     fetch(`${baseUrl}/leagues?current=true`, {
         headers: {
             "x-apisports-key": apiKey
         }
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("API request failed.");
+            }
+
+            return response.json();
+        })
+        .then(function (data) {
             console.log(data);
 
             footballDataList.innerHTML = "";
             statusMessage.textContent = "";
+
+            if (hasApiErrors(data)) {
+                showError("API error. Check your API key, endpoint, or request limit.");
+                return;
+            }
 
             if (!data.response || data.response.length === 0) {
                 showError("No league data is available.");
                 return;
             }
 
-            for (let i = 0; i < data.response.length; i++) {
-                const item = data.response[i];
+            const sortedLeagues = data.response.sort(function (a, b) {
+                const seasonA = a.seasons[a.seasons.length - 1].year;
+                const seasonB = b.seasons[b.seasons.length - 1].year;
+
+                return seasonB - seasonA;
+            });
+
+            const leaguesToDisplay = sortedLeagues.slice(0, 20);
+
+            for (let i = 0; i < leaguesToDisplay.length; i++) {
+                const item = leaguesToDisplay[i];
+
+                const latestSeason =
+                    item.seasons[item.seasons.length - 1];
+
+                const flagImage =
+                    createFlagImage(
+                        item.country.flag,
+                        `${item.country.name} flag`
+                    );
 
                 renderListItem(`
                     <h3>${item.league.name}</h3>
 
                     <p>
-                        <img src="${item.country.flag}" alt="${item.country.name} flag" class="country-flag">
+                        ${flagImage}
                         <strong>Country:</strong> ${item.country.name}
                     </p>
 
                     <p><strong>Type:</strong> ${item.league.type}</p>
-                    <p><strong>Season:</strong> ${item.seasons[0].year}</p>
+                    <p><strong>Latest Season:</strong> ${latestSeason.year}</p>
+                    <p><strong>Season Start:</strong> ${latestSeason.start}</p>
+                    <p><strong>Season End:</strong> ${latestSeason.end}</p>
                 `);
             }
         })
-        .catch(error => {
+        .catch(function (error) {
             console.error("Leagues error:", error);
             showError("Unable to load current leagues.");
+        })
+        .finally(function () {
+            setLoading(false);
         });
 }
 
