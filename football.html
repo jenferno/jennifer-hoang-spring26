@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football API Dashboard</title>
+    <link rel="stylesheet" href="football.css">
+</head>
+
+<body>
+    <header class="page-header">
+        <h1>Football API Dashboard</h1>
+        <p>Live match data and active league information powered by API-Football.</p>
+
+        <nav class="top-nav">
+            <a href="index.html">Back to Portfolio</a>
+            <button id="show-scorers" type="button">Top Scorers</button>
+            <button id="show-leagues" type="button">Current Leagues</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard-card">
+            <h2 id="data-title">Select a Football Data View</h2>
+            <p id="data-description">Choose a data view.</p>
+
+            <div id="status-message" class="status-message"></div>
+
+            <ul id="football-data-list" class="data-list"></ul>
+        </section>
+    </main>
+
+    <script src="football.js"></script>
+</body>
+</html>

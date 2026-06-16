@@ -1,0 +1,212 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    color: #102a43;
+    line-height: 1.6;
+}
+
+/* Header */
+
+.page-header {
+    text-align: center;
+    padding: 45px 20px 35px;
+    color: white;
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: #eef6ff;
+    margin-bottom: 25px;
+}
+
+/* Navigation */
+
+.top-nav {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.top-nav a,
+.top-nav button {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #1e3a8a;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+    transition: transform 0.3s ease,
+                background-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.top-nav a:hover,
+.top-nav button:hover {
+    background-color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+}
+
+/* Main Layout */
+
+main {
+    max-width: 950px;
+    margin: 20px auto 50px;
+    padding: 0 20px;
+}
+
+/* Weather App Style Card */
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    padding: 32px;
+    border-radius: 28px;
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.dashboard-card h2 {
+    font-size: 2rem;
+    color: #1e3a8a;
+    margin-bottom: 8px;
+}
+
+#data-description {
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+.status-message {
+    background-color: #eff6ff;
+    color: #2563eb;
+    padding: 12px 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Data Cards */
+
+.data-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    padding-left: 0;
+}
+
+.data-list li {
+    background: linear-gradient(180deg, #ffffff, #eff6ff);
+    color: #0f172a;
+    padding: 22px;
+    border-radius: 22px;
+    box-shadow: 0 10px 24px rgba(30, 64, 175, 0.12);
+    border: 1px solid #dbeafe;
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.data-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(30, 64, 175, 0.2);
+}
+
+.data-list h3 {
+    color: #1e40af;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.data-list p {
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.data-list strong {
+    color: #0f172a;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .page-header h1 {
+        font-size: 2.1rem;
+    }
+
+    .page-header {
+        padding: 35px 15px 25px;
+    }
+
+    .dashboard-card {
+        padding: 24px;
+        border-radius: 22px;
+    }
+
+    .top-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top-nav a,
+    .top-nav button {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+.player-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.player-photo {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #dbeafe;
+}
+
+.country-flag {
+    width: 24px;
+    height: auto;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 3px;
+}
+
+.team-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.nationality {
+    display: flex;
+    align-items: center;
+    color: #475569;
+    font-weight: bold;
+}
