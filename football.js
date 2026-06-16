@@ -49,6 +49,9 @@ function renderListItem(htmlContent) {
 function setLoading(isLoading) {
     scorersButton.disabled = isLoading;
     leaguesButton.disabled = isLoading;
+
+    scorersButton.textContent = isLoading ? "Loading..." : "Top Scorers";
+    leaguesButton.textContent = isLoading ? "Loading..." : "Current Leagues";
 }
 
 function hasApiErrors(data) {
@@ -65,18 +68,35 @@ function getFlagUrl(nationality) {
     return `https://flagcdn.com/24x18/${countryCode}.png`;
 }
 
-function createFlagImage(flagUrl, altText) {
-    if (!flagUrl) {
+function createImage(imageUrl, altText, className) {
+    if (!imageUrl) {
         return "";
     }
 
     return `
         <img
-            src="${flagUrl}"
+            src="${imageUrl}"
             alt="${altText}"
-            class="country-flag"
+            class="${className}"
         >
     `;
+}
+
+function handleApiResponse(data, emptyMessage) {
+    if (hasApiErrors(data)) {
+        showError("API error. Check your API key, endpoint, or request limit.");
+        return null;
+    }
+
+    if (!data.response || data.response.length === 0) {
+        showError(emptyMessage);
+        return null;
+    }
+
+    footballDataList.innerHTML = "";
+    statusMessage.textContent = "";
+
+    return data.response;
 }
 
 function fetchTopScorers() {
@@ -99,10 +119,7 @@ function fetchTopScorers() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-
-            footballDataList.innerHTML = "";
-            statusMessage.textContent = "";
+            console.log("Top Scorers API Data:", data);
 
             if (hasApiErrors(data)) {
                 showError("API error. Check your API key, endpoint, or request limit.");
@@ -114,41 +131,42 @@ function fetchTopScorers() {
                 return;
             }
 
-            for (let i = 0; i < data.response.length; i++) {
-                const playerData = data.response[i];
+            footballDataList.innerHTML = "";
+            statusMessage.textContent = "";
+
+            const scorersToDisplay = data.response.slice(0, 20);
+
+            for (let i = 0; i < scorersToDisplay.length; i++) {
+                const playerData = scorersToDisplay[i];
                 const player = playerData.player;
                 const stats = playerData.statistics[0];
 
-                const flagUrl = getFlagUrl(player.nationality);
+                if (!player || !stats) {
+                    continue;
+                }
 
-                const flagImage =
-                    createFlagImage(flagUrl, `${player.nationality} flag`);
+                const flagUrl = getFlagUrl(player.nationality);
+                const flagImage = createImage(flagUrl, `${player.nationality} flag`, "country-flag");
+                const playerPhoto = createImage(player.photo, `${player.name} photo`, "player-photo");
+                const teamLogo = createImage(stats.team.logo, `${stats.team.name} logo`, "team-logo");
 
                 renderListItem(`
                     <div class="player-card-header">
-                        <img
-                            src="${player.photo}"
-                            alt="${player.name}"
-                            class="player-photo"
-                        >
+                        ${playerPhoto}
 
                         <div>
                             <h3>${player.name}</h3>
 
                             <p class="nationality">
                                 ${flagImage}
-                                ${player.nationality}
+                                ${player.nationality || "Nationality unavailable"}
                             </p>
                         </div>
                     </div>
 
                     <p>
-                        <img
-                            src="${stats.team.logo}"
-                            alt="${stats.team.name} logo"
-                            class="team-logo"
-                        >
-                        <strong>Team:</strong> ${stats.team.name}
+                        ${teamLogo}
+                        <strong>Team:</strong> ${stats.team.name || "N/A"}
                     </p>
 
                     <p><strong>Goals:</strong> ${stats.goals.total ?? "N/A"}</p>
@@ -187,24 +205,23 @@ function fetchCurrentLeagues() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            console.log("Leagues API Data:", data);
 
-            footballDataList.innerHTML = "";
-            statusMessage.textContent = "";
+            const leagues = handleApiResponse(
+                data,
+                "No league data is available."
+            );
 
-            if (hasApiErrors(data)) {
-                showError("API error. Check your API key, endpoint, or request limit.");
+            if (!leagues) {
                 return;
             }
 
-            if (!data.response || data.response.length === 0) {
-                showError("No league data is available.");
-                return;
-            }
+            const sortedLeagues = leagues.sort(function (a, b) {
+                const seasonA =
+                    a.seasons[a.seasons.length - 1]?.year || 0;
 
-            const sortedLeagues = data.response.sort(function (a, b) {
-                const seasonA = a.seasons[a.seasons.length - 1].year;
-                const seasonB = b.seasons[b.seasons.length - 1].year;
+                const seasonB =
+                    b.seasons[b.seasons.length - 1]?.year || 0;
 
                 return seasonB - seasonA;
             });
@@ -217,24 +234,24 @@ function fetchCurrentLeagues() {
                 const latestSeason =
                     item.seasons[item.seasons.length - 1];
 
-                const flagImage =
-                    createFlagImage(
-                        item.country.flag,
-                        `${item.country.name} flag`
-                    );
+                const flagImage = createImage(
+                    item.country.flag,
+                    `${item.country.name} flag`,
+                    "country-flag"
+                );
 
                 renderListItem(`
                     <h3>${item.league.name}</h3>
 
                     <p>
                         ${flagImage}
-                        <strong>Country:</strong> ${item.country.name}
+                        <strong>Country:</strong> ${item.country.name || "N/A"}
                     </p>
 
-                    <p><strong>Type:</strong> ${item.league.type}</p>
-                    <p><strong>Latest Season:</strong> ${latestSeason.year}</p>
-                    <p><strong>Season Start:</strong> ${latestSeason.start}</p>
-                    <p><strong>Season End:</strong> ${latestSeason.end}</p>
+                    <p><strong>Type:</strong> ${item.league.type || "N/A"}</p>
+                    <p><strong>Latest Season:</strong> ${latestSeason?.year || "N/A"}</p>
+                    <p><strong>Season Start:</strong> ${latestSeason?.start || "N/A"}</p>
+                    <p><strong>Season End:</strong> ${latestSeason?.end || "N/A"}</p>
                 `);
             }
         })
