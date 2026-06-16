@@ -132,4 +132,9 @@ fetch("https://api.github.com/users/jenferno/repos")
     })
     .catch(function (error) {
         console.error("Error fetching repositories:", error);
+
+            const projectSection = document.querySelector("#Projects");
+
+        projectSection.innerHTML +=
+            "<p>Unable to load GitHub repositories at this time.</p>";
     });
