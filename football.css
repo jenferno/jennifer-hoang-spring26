@@ -109,8 +109,8 @@ main {
 .data-list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
     padding-left: 0;
 }
 
@@ -123,17 +123,25 @@ main {
     border: 1px solid #dbeafe;
     transition: transform 0.3s ease,
                 box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .data-list li:hover {
     transform: translateY(-5px);
     box-shadow: 0 14px 30px rgba(30, 64, 175, 0.2);
+    text-align: center;
 }
 
 .data-list h3 {
     color: #1e40af;
     font-size: 1.25rem;
     margin-bottom: 12px;
+}
+
+.country-flag {
+    display: inline-block;
 }
 
 .data-list p {
@@ -209,4 +217,36 @@ main {
     align-items: center;
     color: #475569;
     font-weight: bold;
+}
+
+/* Better focus styles for keyboard accessibility */
+.top-nav a:focus,
+.top-nav button:focus {
+    outline: 3px solid #1e40af;
+    outline-offset: 4px;
+}
+
+/* Disabled button state while data is loading */
+.top-nav button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Prevent images from stretching or breaking layout */
+img {
+    max-width: 100%;
+}
+
+/* Slightly better player-card layout on small screens */
+@media (max-width: 480px) {
+    .player-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .player-photo {
+        width: 60px;
+        height: 60px;
+    }
 }

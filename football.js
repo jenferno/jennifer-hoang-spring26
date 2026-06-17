@@ -32,7 +32,7 @@ const flagCodes = {
 
 function clearDisplay() {
     footballDataList.innerHTML = "";
-    statusMessage.textContent = "Loading...";
+    statusMessage.textContent = "Loading  football data. Please wait.";
 }
 
 function showError(message) {
@@ -147,10 +147,9 @@ function fetchTopScorers() {
 
                 // Player flags: use flagCodes mapping
                 const flagUrl = getFlagUrl(player.nationality);
-
-                const flagImage = createImage(flagUrl, `${player.nationality} flag`, "country-flag");
-                const playerPhoto = createImage(player.photo, `${player.name} photo`, "player-photo");
-                const teamLogo = createImage(stats.team.logo, `${stats.team.name} logo`, "team-logo");
+                const flagImage = createImage(flagUrl, `${player.nationality} national flag`, "country-flag");
+                const playerPhoto = createImage(player.photo, `Portrait of ${player.name}`, "player-photo");
+                const teamLogo = createImage(stats.team.logo, `${stats.team.name} football club logo`, "team-logo");
 
                 renderListItem(`
                     <div class="player-card-header">

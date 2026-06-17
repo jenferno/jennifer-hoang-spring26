@@ -42,7 +42,6 @@ if (skillsSection) {
     }
 }
 
-
 // Leave a Message Form
 const messageForm = document.querySelector('form[name="leave_message"]');
 
@@ -86,7 +85,6 @@ if (messageForm) {
     });
 }
 
-
 // GitHub Repositories / Projects
 fetch("https://api.github.com/users/jenferno/repos")
     .then(function (response) {
@@ -103,9 +101,20 @@ fetch("https://api.github.com/users/jenferno/repos")
         const projectList = projectSection.querySelector("ul");
 
         for (let i = 0; i < repositories.length; i++) {
+
+            if (repositories[i].name === "jennifer-hoang-spring26") {
+                continue;
+            }
+
             const project = document.createElement("li");
 
-            project.textContent = repositories[i].name;
+            project.innerHTML = `
+                <a href="${repositories[i].html_url}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    ${repositories[i].name}
+                </a>
+            `;
 
             projectList.appendChild(project);
         }
