@@ -145,6 +145,7 @@ function fetchTopScorers() {
                     continue;
                 }
 
+                // Player flags: use flagCodes mapping
                 const flagUrl = getFlagUrl(player.nationality);
                 const flagImage = createImage(flagUrl, `${player.nationality} national flag`, "country-flag");
                 const playerPhoto = createImage(player.photo, `Portrait of ${player.name}`, "player-photo");
@@ -233,7 +234,8 @@ function fetchCurrentLeagues() {
 
                 const latestSeason =
                     item.seasons[item.seasons.length - 1];
-
+                
+                // League flags: use API-provided full flag URL
                 const flagImage = createImage(
                     item.country.flag,
                     `${item.country.name} flag`,
